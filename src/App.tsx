@@ -29,17 +29,24 @@ function App() {
     function changeFilter(value: filterType){
         setFilter(value)
     }
-
     function removeTasks(id: string){
         tasks = tasks.filter(el=>el.id!==id)
         setTasks(tasks)
     }
-
     function addTask(title: string) {
         let task = {id: v1(), title: title, isDone: false};
         let newTasks = [task, ...tasks];
         setTasks(newTasks)
     }
+
+    function changeTaskStatus(id: string, isDone: boolean){
+        let task = tasks.find(t=> t.id === id)
+        if(task) {
+            task.isDone = isDone;
+            setTasks([...tasks])
+        }
+    }
+
 
     return (
         <div className={'App'}>
@@ -48,6 +55,8 @@ function App() {
                        removeTasks={removeTasks}
                        changeFilter={changeFilter}
                        addTask={addTask}
+                       changeTaskStatus = {changeTaskStatus}
+                       filter={filter}
             />
         </div>
     )
